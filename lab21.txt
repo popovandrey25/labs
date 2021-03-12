@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for file in /home/andrew/labs/lb21/files_for_lab/*
+do
+number=$(stat -c %b $file)
+par=$[ $1 ]
+if [ -d "$file" ]
+then
+        if [[ $number -ge $par ]]
+        then
+        rmdir $file
+        fi
+elif [ -f "$file" ]
+then
+        if [[ $number -ge $par ]]
+        then
+        rm $file
+        fi
+fi
+done
