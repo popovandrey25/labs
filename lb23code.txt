@@ -1,0 +1,18 @@
+#!/usr/bin/python3.9
+import os
+import subprocess
+
+pathh = input("Введите полный путь до исполняемой директории : ") #получаем путь к директории с нужными файлами
+size_max = int(input("Введите максимально-допустимый размер блока : ")) #получаем максимальный размер блока
+
+list = os.listdir(pathh) #получаем список файлов исполняемой директории
+
+for item in list:
+        command = "stat -c %b " + os.path.join(pathh, item)
+        size_file = int(os.popen(command).read())
+        if os.path.isfile(os.path.join(pathh, item)):
+                if size_file > size_max:
+                        os.remove(os.path.join(pathh, item))
+        elif os.path.isdir(os.path.join(pathh, item)):
+                if size_file > size_max:
+                        os.rmdir(os.path.join(pathh, item))
